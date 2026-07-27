@@ -1,0 +1,30 @@
+# Headline_News 本地依赖（MySQL + Redis）一键启动
+# 用法：在仓库根目录执行  docker compose up -d
+# 导入表结构：docker compose exec -T mysql mysql -uroot -p123456 news_app < news_database/database.sql
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: headline_news_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "news_app"
+      TZ: "Asia/Shanghai"
+    ports:
+      - "3306:3306"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7
+    container_name: headline_news_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:
