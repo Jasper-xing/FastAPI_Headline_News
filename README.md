@@ -6,6 +6,7 @@
 
 ## 📑 目录
 
+- [项目简介](#项目简介)
 - [技术栈](#技术栈)
 - [项目结构](#项目结构)
 - [环境准备](#环境准备)
@@ -16,6 +17,12 @@
   - [接口总览](#接口总览)
 - [缓存策略](#缓存策略)
 - [仓库未包含的内容与补回方法](#仓库未包含的内容与补回方法)
+
+---
+
+## 项目简介
+
+Headline_News 是一个基于 **FastAPI** 构建的新闻资讯系统后端服务，采用前后端分离架构。后端负责新闻内容的组织与检索、用户账户体系，以及个性化交互数据（收藏与浏览历史）的存储与管理，并通过清晰的「配置层 / 模型层 / 校验层 / 数据访问层 / 路由层 / 工具层」分层架构保证可维护性。项目借助数据库连接池、Redis 缓存与无状态 JWT 鉴权，在并发场景下保持良好的响应性能。
 
 ---
 
@@ -64,7 +71,7 @@ Headline_News/
 │   │   ├── news.py                   # 新闻基础数据库操作（列表 / 详情 / 计数）
 │   │   ├── news_cache.py             # 带缓存优先逻辑的新闻操作（路由实际调用此文件）
 │   │   ├── users.py                  # 用户 CRUD + 令牌生成 / 校验
-│   │   ├── favorite.py               # 收藏增删查 / 清空
+��   │   ├── favorite.py               # 收藏增删查 / 清空
 │   │   └── history.py                # 浏览历史记录 / 查询 / 删除 / 清空
 │   │
 │   ├── routers/                      # 路由层（对外 API 端点）
@@ -83,43 +90,7 @@ Headline_News/
 │       ├── exception.py              # 分级异常处理器实现
 │       └── exception_handles.py      # 异常处理器注册到 app（被 main.py 调用）
 │
-├── frontend/xwzx-news/               # 前端根目录（Vue3）
-│   ├── index.html                    # 入口 HTML
-│   ├── package.json                  # 前端依赖清单
-│   └── src/
-│       ├── main.js                   # Vue 应用入口
-│       ├── App.vue                   # 根组件
-│       ├── router/index.js           # 路由配置
-│       ├── store/                    # Pinia 状态管理
-│       │   ├── index.js
-│       │   ├── modules/news.js       # 新闻状态
-│       │   ├── modules/user.js       # 用户状态
-│       │   ├── modules/favorite.js   # 收藏状态
-│       │   ├── modules/history.js    # 历史状态
-│       │   ├── theme.js              # 主题切换
-│       │   └── language.js           # 语言切换
-│       ├── views/                    # 页面视图
-│       │   ├── Home.vue              # 首页
-│       │   ├── Category.vue          # 分类页
-│       │   ├── NewsDetail.vue        # 新闻详情
-│       │   ├── Favorite.vue          # 我的收藏
-│       │   ├── History.vue           # 浏览历史
-│       │   ├── Login.vue             # 登录
-│       │   ├── Register.vue          # 注册
-│       │   ├── My.vue                # 个人中心
-│       │   ├── Profile.vue           # 个人资料
-│       │   ├── Settings.vue          # 设置
-│       │   └── AIChat.vue            # AI 对话
-│       ├── components/               # 公共组件
-│       │   ├── NewsItem.vue          # 新闻条目
-│       │   ├── TabBar.vue            # 底部导航栏
-│       │   └── HelloWorld.vue
-│       ├── config/api.js             # API 请求封装
-│       ├── i18n/                     # 国际化
-│       │   ├── locales/zh-CN.js      # 中文语言包
-│       │   └── locales/en-US.js      # 英文语言包
-│       ├── assets/                   # 静态资源
-│       └── style.css                 # 全局样式
+├── frontend/                         # 前端项目目录（Vue3，独立仓库，未展开）
 │
 ├── news_database/
 │   └── database.sql                  # 数据库建表语句 + 示例数据
@@ -194,7 +165,7 @@ mysql -u root -p news_app < news_database/database.sql
 
 #### 方式一：Docker（随上方 docker compose 已一并启动，无需额外操作）
 
-#### 方式二：本地安装 Redis 7.x.x
+#### 方式二：本地安装
 
 ```bash
 redis-server.exe redis.windows.conf    # 在 Redis 目录下执行，默认端口 6379
@@ -366,6 +337,6 @@ Authorization: Bearer <token值>
 | `node_js/`（~105 MB） | Node.js 运行时 | 第三方运行时，读者自备 | 安装 Node.js 18+ |
 | `frontend/.../node_modules/` | 前端 npm 依赖 | 可由 `npm install` 重建 | `cd frontend/xwzx-news && npm install` |
 | `backend/__pycache__/` | Python 编译缓存 | 运行时自动生成 | 无需处理 |
-
+| `*.docx` / `*.tmp` | Office 文档 / 临时锁文件 | 非项目源码 | 忽略 |
 
 > `news_database/database.sql` **已包含在仓库内**，克隆后直接导入即可获得完整的数据库表结构与示例数据。
