@@ -16,7 +16,6 @@
   - [接口总览](#接口总览)
 - [缓存策略](#缓存策略)
 - [仓库未包含的内容与补回方法](#仓库未包含的内容与补回方法)
-- [安全提示](#安全提示配置已走环境变量)
 
 ---
 
@@ -370,14 +369,3 @@ Authorization: Bearer <token值>
 | `*.docx` / `*.tmp` | Office 文档 / 临时锁文件 | 非项目源码 | 忽略 |
 
 > `news_database/database.sql` **已包含在仓库内**，克隆后直接导入即可获得完整的数据库表结构与示例数据。
-
----
-
-## 安全提示（配置已走环境变量）
-
-数据库与 Redis 的连接信息**已从硬编码改为读取环境变量**，仓库内不落任何真实密码：
-
-- MySQL 连接参数：`DB_USER` / `DB_PASSWORD` / `DB_HOST` / `DB_PORT` / `DB_NAME`
-- Redis 连接参数：`REDIS_HOST` / `REDIS_PORT` / `REDIS_DB` / `REDIS_PASSWORD`
-
-公开仓库前，只需将 `.env.example` 复制为 `.env` 并按需覆盖变量即可；真实的 `.env` 文件**不要提交**（已由 `.gitignore` 排除）。若使用 Docker，`docker-compose.yml` 中的密码与环境变量默认值保持一致。
