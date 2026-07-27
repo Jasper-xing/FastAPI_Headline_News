@@ -71,7 +71,7 @@ Headline_News/
 │   │   ├── news.py                   # 新闻基础数据库操作（列表 / 详情 / 计数）
 │   │   ├── news_cache.py             # 带缓存优先逻辑的新闻操作（路由实际调用此文件）
 │   │   ├── users.py                  # 用户 CRUD + 令牌生成 / 校验
-��   │   ├── favorite.py               # 收藏增删查 / 清空
+│   │   ├── favorite.py               # 收藏增删查 / 清空
 │   │   └── history.py                # 浏览历史记录 / 查询 / 删除 / 清空
 │   │
 │   ├── routers/                      # 路由层（对外 API 端点）
@@ -90,7 +90,7 @@ Headline_News/
 │       ├── exception.py              # 分级异常处理器实现
 │       └── exception_handles.py      # 异常处理器注册到 app（被 main.py 调用）
 │
-├── frontend/                         # 前端项目目录（Vue3，独立仓库，未展开）
+├── frontend/                         # 前端项目目录（Vue3，独立仓库）
 │
 ├── news_database/
 │   └── database.sql                  # 数据库建表语句 + 示例数据
@@ -165,7 +165,7 @@ mysql -u root -p news_app < news_database/database.sql
 
 #### 方式一：Docker（随上方 docker compose 已一并启动，无需额外操作）
 
-#### 方式二：本地安装
+#### 方式二：本地安装Redis 7.x.x
 
 ```bash
 redis-server.exe redis.windows.conf    # 在 Redis 目录下执行，默认端口 6379
@@ -337,6 +337,6 @@ Authorization: Bearer <token值>
 | `node_js/`（~105 MB） | Node.js 运行时 | 第三方运行时，读者自备 | 安装 Node.js 18+ |
 | `frontend/.../node_modules/` | 前端 npm 依赖 | 可由 `npm install` 重建 | `cd frontend/xwzx-news && npm install` |
 | `backend/__pycache__/` | Python 编译缓存 | 运行时自动生成 | 无需处理 |
-| `*.docx` / `*.tmp` | Office 文档 / 临时锁文件 | 非项目源码 | 忽略 |
+
 
 > `news_database/database.sql` **已包含在仓库内**，克隆后直接导入即可获得完整的数据库表结构与示例数据。
